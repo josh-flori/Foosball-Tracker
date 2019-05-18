@@ -1,6 +1,3 @@
-# download from here... 
-#https://github.com/opencv/opencv/blob/master/samples/dnn/face_detector/opencv_face_detector.pbtxt
-
 # import the necessary packages
 import numpy as np
 import argparse

@@ -1,4 +1,4 @@
-# /users/josh.flori/desktop/test/bin/python3 /users/josh.flori/documents/josh-flori/foosball-tracker/m__find_faces.py -p='/users/josh.flori/desktop/opencv_face_detector.pbtxt.txt' -m='/users/josh.flori/desktop/res10_300x300_ssd_iter_140000.caffemodel' -o='/users/josh.flori/desktop/' -v='/users/josh.flori/a.mp4' -n=2
+# /users/josh.flori/desktop/test/bin/python3 /users/josh.flori/documents/josh-flori/foosball-tracker/m__find_faces.py -p='/users/josh.flori/desktop/opencv_face_detector.pbtxt.txt' -m='/users/josh.flori/desktop/res10_300x300_ssd_iter_140000.caffemodel' -o='/users/josh.flori/desktop/' -v='/users/josh.flori/a.mp4' -n=3
 
 
 

@@ -1,18 +1,22 @@
 # scp pi@192.168.11.2:~/AIY-projects-python/src/examples/vision/faces.jpg /users/josh.flori/desktop
+# scp pi@192.168.11.2:~/foos_gods.h264 /users/josh.flori/desktop
 
 
 import picamera
 import datetime
 import threading
+import subprocess
 camera = picamera.PiCamera()
 camera.framerate = 60  ## 120 is the highest possible framerate and will not work beyond a certain resolution
-camera.iso = 1600
+#camera.iso = 1600
 camera.resolution = (1280, 720)  ## please note 900x200 refers to the number of columns (width) and then the height (rows) in pixels. all other references to matrices and arrays in python and excel will be the exact opposite which means that as an array, a 900x200 image is actually 200x900 (rows by columns) as opposed to columns by rows. 
 camera.start_preview()
 camera.start_recording('foos_gods.h264')
-
 camera.stop_recording()
 
+
+conv = subprocess.Popen(convCommand, shell = True)
+convCommand = ['MP4Box', '-add', 'foos_gods.h264', '-o', FILEOUT + 'foos_gods.mp4']
 
 
 //---------------------------------------------------

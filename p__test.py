@@ -44,7 +44,7 @@ def main():
         # Configure camera
         camera.resolution = (1640, 922)  # Full Frame, 16:9 (Camera v2)
         camera.start_preview()
-ImageInference
+#ImageInference
         # Do inference on VisionBonnet
         i=1
         with CameraInference(face_detection.model()) as inference:

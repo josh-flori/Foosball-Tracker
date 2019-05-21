@@ -1,4 +1,4 @@
-# Foosball-Tracker, Overview of tasks
+# Foosball-Tracker, Overview of tasks (in progress)
 
 #### 1) SCORE TRACKER
 Have two cameras pointing at the goals, keeping track of the score. Train network to recognize the points, taking a picture every second in real play. Write a script to keep track of what the current score is. When game over, send signal to voice unit to give some message. Custom messages like, if it was really long, or even saying congrats to the winners by name.. that would be cool.

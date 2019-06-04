@@ -73,9 +73,7 @@ print(Y.shape)
 #####################
 #     RANDOMIZE     #
 #####################
-np.random.seed(0)
 np.random.shuffle(X)
-np.random.seed(0)
 np.random.shuffle(Y)
 
 #######################
@@ -164,14 +162,14 @@ if save_model.lower()=="y":
     model.save(args["path_to_model"])
 
 
-
-
+#
+#
 # converting to tflite
 # https://www.tensorflow.org/lite/guide/get_started
 # converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)
 # tflite_model = converter.convert()
 # open("converted_model.tflite", "wb").write(tflite_model)
-
-# to do... convert to tflite... test running on the pi, write script to read frame every second, or do video then process after the fact.... 
+#
+# to do... convert to tflite... test running on the pi, write script to read frame every second, or do video then process after the fact....
 # also figure out how to add people to model... i don't think it's possible
 # also possibly just give in and do transfer learning, or at least test it against your own model....

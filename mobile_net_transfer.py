@@ -153,7 +153,7 @@ tf.train.write_graph(my_graph, path_to_model_pb,
   --input_tensor_size=${IMAGE_SIZE}
   
   
-tf.saved_model.save(model, "/users/josh.flori/1")
+tf.saved_model.save(model, "/users/josh.flori/11")
   
 
  # One confusing part about this is that the weights usually aren't stored inside the file format during training. Instead, they're held in separate checkpoint files, and there are Variable ops in the graph that load the latest values when they're initialized. It's often not very convenient to have separate files when you're deploying to production, so there's the freeze_graph.py script that takes a graph definition and a set of checkpoints and freezes them together into a single file.
@@ -247,6 +247,17 @@ tf.train.write_graph(frozen_graph, "model", "tf_model.pb", as_text=False)
 
 
 
+
+converter = tf.lite.TFLiteConverter.from_saved_model('/users/josh.flori/1/')
+
+from tensorflow.keras.models import load_model
+m = load_model('/users/josh.flori/11/saved_model.pb')
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+
+tflite_model = converter.convert()
+
+with open('model.tflite', 'wb') as f:
+  f.write(tflite_model)
 
 
 

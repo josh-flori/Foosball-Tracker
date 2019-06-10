@@ -3,7 +3,7 @@
 
 scp pi@raspberrypi.local:~/test.h264 /users/josh.flori/desktop
 scp pi@raspberrypi.local:~/image.jpg /users/josh.flori/desktop
-
+scp pi@raspberrypi.local:~/mymodel.binaryproto /users/josh.flori/desktop
 
 
 /users/josh.flori/desktop/test/bin/python3 /users/josh.flori/documents/josh-flori/foosball-tracker/vid_to_frames.py  -v='/users/josh.flori/desktop/test.h264' -o='/users/josh.flori/desktop/training_data/'
@@ -34,7 +34,7 @@ python -m scripts.label_image \
   
   
 docker run \
-  --name ba \
+  --name baa \
   -e HOST_IP=$(ifconfig en1 | awk '/ *inet /{print $2}') \
   -v /Users/josh.flori/desktop/send_to_linux/:/src \
   -t -i \
@@ -49,7 +49,7 @@ docker run \
     --input_tensor_size=160 \
     --debug  
     
-docker cp 5633c4e51db7:/mymodel.binaryproto /users/josh.flori/desktop/
+docker cp a759aad27e7b:/mymodel.binaryproto /users/josh.flori/desktop/
 
 
 scp /users/josh.flori/desktop/mymodel.binaryproto /users/josh.flori/desktop/send_to_linux/retrained_labels.txt pi@raspberrypi.local:~/
@@ -67,7 +67,11 @@ scp /users/josh.flori/desktop/mymodel.binaryproto /users/josh.flori/desktop/send
   --preview
   
   
-nano AIY-projects-python/src/examples/vision/mobilenet_based_classifier.py  
+  
+~/AIY-projects-python/src/examples/vision/image_classification.py
+  
+  
+nano AIY-projects-python/src/examples/vision/mobilenet_based_classifier.py
 
 
 
@@ -104,7 +108,17 @@ nano ~/AIY-projects-python/src/aiy/vision/inference.py
 
 
 
+(a, args.input_std)
 
+
+
+
+
+
+
+
+I am trying to deploy my own image recognition model on the vision kit and test it using mobilenet_based_classifier.py 
+I have followed all of the instructions, created a model.binaryproto with a labels.txt, placed on the pi and have ran the classifier, but the only thing it returns is ___________
 
 
 

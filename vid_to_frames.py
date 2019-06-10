@@ -38,6 +38,5 @@ success = True
 # This will throw an error when it reaches the last frame and tries to read the next frame since there is no next frame.
 while success:
         success,color_img = vidcap.read()
-        color_img=normalize(color_img)
         output_frames(color_img,frame_num)
         frame_num += 1   

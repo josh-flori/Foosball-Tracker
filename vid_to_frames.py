@@ -6,7 +6,7 @@
 
 # EXAMPLE USAGE:
 # /users/..../python3 /users/.../vid_to_frames.py  -v='/users/josh.flori/desktop/test.h264' -o='/users/josh.flori/desktop/training_data/' 
-
+# /users/josh.flori/desktop/test/bin/python3 /users/josh.flori/documents/josh-flori/foosball-tracker/old_maybe_not_needed/vid_to_frames.py  -v='/users/josh.flori/desktop/test.h264' -o='/users/josh.flori/desktop/output/' 
 
 import numpy as np
 import argparse
@@ -26,8 +26,8 @@ args = vars(ap.parse_args())
 
 def output_frames(frame,frame_num):
 	# If you want to crop down to a specific part of the video file, you can do that like so:
-    # cv2.imwrite(args["output_dir"]+"frame_"+str(frame_num)+".jpg", frame[200:600,100:1100])
-	cv2.imwrite(args["output_dir"]+"frame_"+str(frame_num)+".jpg", frame)
+    cv2.imwrite(args["output_dir"]+"frame_"+str(frame_num)+".jpg", frame[240:350,45:80])
+	#cv2.imwrite(args["output_dir"]+"frame_"+str(frame_num)+".jpg", frame)
  
 
 

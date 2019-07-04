@@ -30,7 +30,7 @@ checkpoint_dir = os.path.dirname(checkpoint_path)
 cp_callback = tf.keras.callbacks.ModelCheckpoint(
     checkpoint_path, verbose=1, save_weights_only=False,
     # Save weights, every 5-epochs.
-    period=1)
+    save_freq=1)
 
 logdir="/users/josh.flori/desktop/logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
 tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)
@@ -46,14 +46,14 @@ tensorboard_callback = tf.keras.callbacks.TensorBoard(log_dir=logdir)
 
 
 model = models.Sequential()
-model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(224, 224, 3)))
+model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(35,110, 3)))
 model.add(layers.MaxPooling2D((2, 2)))
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model.add(layers.MaxPooling2D((2, 2)))
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model.add(layers.Flatten())
 model.add(layers.Dense(64, activation='relu'))
-model.add(layers.Dense(12, activation='softmax'))
+model.add(layers.Dense(11, activation='softmax'))
 
 
 # x = base_model.output
@@ -78,7 +78,7 @@ train_datagen = ImageDataGenerator(preprocessing_function=preprocess_input,
 
 train_generator = train_datagen.flow_from_directory(
     '/users/josh.flori/desktop/training_data/',
-    target_size=(224, 224),
+    target_size=(35,110),
     batch_size=32,
     color_mode='rgb',
     class_mode='categorical',
@@ -87,7 +87,7 @@ train_generator = train_datagen.flow_from_directory(
 
 validation_generator = train_datagen.flow_from_directory(
     '/users/josh.flori/desktop/training_data/',
-    target_size=(224, 224),
+    target_size=(35,110),
     batch_size=32,
     color_mode='rgb',
     class_mode='categorical',
@@ -108,7 +108,7 @@ history = model.fit_generator(
     steps_per_epoch=train_generator.samples // train_generator.batch_size,
     validation_data=validation_generator,
     validation_steps=validation_generator.samples // train_generator.batch_size,
-    epochs=2, callbacks = [cp_callback,tensorboard_callback])
+    epochs=10, callbacks = [cp_callback,tensorboard_callback])
 
 # Get diagnostic data from history    
 history_dict = history.history
@@ -139,47 +139,10 @@ plot_diagnostics(train_acc, val_acc, train_loss, val_loss, "loss")
 plot_diagnostics(train_acc, val_acc, train_loss, val_loss, "accuracy")
 
 
-
-tf.train.write_graph(my_graph, path_to_model_pb,
-                     'saved_model.pb', as_text=False)
-
-
-
-./bonnet_model_compiler.par \
-  --frozen_graph_path='/users/josh.flori/1/saved_model.pb' \
-  --output_graph_path='retrained_graph.binaryproto' \
-  --input_tensor_name=input \
-  --output_tensor_names=final_result \
-  --input_tensor_size=${IMAGE_SIZE}
   
   
 tf.saved_model.save(model, "/users/josh.flori/11")
   
-
- # One confusing part about this is that the weights usually aren't stored inside the file format during training. Instead, they're held in separate checkpoint files, and there are Variable ops in the graph that load the latest values when they're initialized. It's often not very convenient to have separate files when you're deploying to production, so there's the freeze_graph.py script that takes a graph definition and a set of checkpoints and freezes them together into a single file.
-
-# https://www.tensorflow.org/guide/extend/model_files#freezing
-# https://aiyprojects.withgoogle.com/vision/#makers-guide
-
-
-# The phrase "Saving a TensorFlow model" typically means one of two things: (1) Checkpoints, OR (2) SavedModel.
-
-# Checkpoints capture the exact value of all parameters (tf.Variable objects) used by a model. Checkpoints do not contain any description of the computation defined by the model and thus are typically only useful when source code that will use the saved parameter values is available.
-#
-# The SavedModel format on the other hand includes a serialized description of the computation defined by the model in addition to the parameter values (checkpoint). Models in this format are independent of the source code that created the model. They are thus suitable for deployment via TensorFlow Serving, TensorFlow Lite, TensorFlow.js, or programs in other programming languages (the C, C++, Java, Go, Rust, C# etc. TensorFlow APIs).
-#
-# This guide covers APIs for writing and reading checkpoints.
-
-
-
-
-
-
-
-
-
-
-
 
 
 
